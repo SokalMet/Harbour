@@ -56,12 +56,15 @@ namespace Harbour
                     {
                         Console.WriteLine(" Now " + astra.ShipsInHarbour.Count + " ship(s) in " + astra.Name);
 
-                        Console.Write("Type Parameters OF Youre Ship :\nName - " + incomeShipName + "\n(SmallShip - press\"1\"; TooBigShip - press\"2\"; Tanker - press\"3\";) \nShip type - ");
+                        Console.Write("Type Parameters OF Youre Ship :\nName - " + 
+                            incomeShipName + "\n(SmallShip - press\"1\"; TooBigShip - press\"2\"; Tanker - press\"3\";) \nShip type - ");
                         var shipType = ToEnum<Enums.Enums.ShipTypes>(Console.ReadLine());
-                        if (!astra.AdoptShipTypes.Contains(shipType))
+                        Console.WriteLine(shipType);
+                        while (astra.AdoptShipTypes.Contains(shipType)!=true)
                         {
-                            Console.WriteLine("Yo'rs Ship Is Not For our Harbor!!!    Ok?");
-                            Console.ReadKey();
+                            Console.WriteLine("Your Ship Is Not For our Harbor!!!    Ok?");
+                            shipType = ToEnum<Enums.Enums.ShipTypes>(Console.ReadLine());
+                            Console.WriteLine(shipType);
                         }
                         Console.Write("Color - ");
                         var shipColor = Console.ReadLine();
@@ -120,7 +123,7 @@ namespace Harbour
                             }
                         }
                     }
-                    else { Console.WriteLine("Sorry! Come enother time!"); } 
+                    else { Console.WriteLine("Sorry! Come another time!"); } 
                 }
                 Console.WriteLine("Do you want to continue? (\"y/n\")");
             }
