@@ -20,27 +20,32 @@ namespace Harbour
 
         private static void Main(string[] args)
         {
-            var astra = new Astra();
+            Astra astra = new Astra();            
             var incomingShipNameList = new List<string>();
             var incomingShipList2 = new List<Ship>();
+            
             do
             {
-                Console.WriteLine(astra.WelcomeSpeech + ". The weather is " + astra.Weather());
-                Console.Clear();
+                var astraWeather = astra.Weather();
+                Console.WriteLine(astra.WelcomeSpeech + ". The weather is " + astraWeather);
+               
                 Console.WriteLine("Tell me youre Name");
+                
                 var incomeShipName = Console.ReadLine();
+                Console.Clear();
 
-                if (astra.Weather() == Enums.Enums.WeatherType.Bad)
+                if (astraWeather == Enums.Enums.WeatherType.Bad)
                 {
                     Console.WriteLine("Bad weather - IS OUR BREAK TIME! Come next time!");
                 }
                 else
                 {
+                    Console.WriteLine(" Now " + astra.ShipsInHarbour.Count + " ship(s) in " + astra.Name);
+
                     if (incomingShipNameList.Contains(incomeShipName))
                     {
-                        Console.WriteLine(" Now " + astra.ShipsInHarbour.Count + " ship(s) in " + astra.Name);
-
-                        Console.WriteLine("\n\nHello! How is youre staying here? If you want to leave " + astra.Name +
+                       
+                        Console.WriteLine("\n\nHello! How is your staying here? If you want to leave " + astra.Name +
                                               " harbor - press \"y\"");
                         if (Console.ReadLine() == "y")
                         {
@@ -54,36 +59,32 @@ namespace Harbour
                     }
                     else if (!incomingShipNameList.Contains(incomeShipName) && astra.ShipsInHarbour.Count < astra.MaxShipsIn)
                     {
-                        Console.WriteLine(" Now " + astra.ShipsInHarbour.Count + " ship(s) in " + astra.Name);
-
-                        Console.Write("Type Parameters OF Youre Ship :\nName - " + 
+                        Console.Write("Type Parameters OF Your Ship :\nName - " + 
                             incomeShipName + "\n(SmallShip - press\"1\"; TooBigShip - press\"2\"; Tanker - press\"3\";) \nShip type - ");
-                        var shipType = ToEnum<Enums.Enums.ShipTypes>(Console.ReadLine());
+                        var shipType= Enums.Enums.ShipTypes.WRONG;
+                        try { shipType = ToEnum<Enums.Enums.ShipTypes>(Console.ReadLine()); }
+                        catch { break; }
                         Console.WriteLine(shipType);
                         while (astra.AdoptShipTypes.Contains(shipType)!=true)
                         {
-                            Console.WriteLine("Your Ship Is Not For our Harbor!!!    Ok?");
+                            Console.WriteLine("Your Ship Is Not For our Harbor!!! ");
                             shipType = ToEnum<Enums.Enums.ShipTypes>(Console.ReadLine());
                             Console.WriteLine(shipType);
                         }
                         Console.Write("Color - ");
                         var shipColor = Console.ReadLine();
-                        Console.Write("Length ( no longer 11.0 meters) - ");
-                        var shipLength = 0m;
-                        try
-                        {
-                            shipLength = Convert.ToDecimal(Console.ReadLine());
-                        }
-                        catch
-                        {
-                            Console.WriteLine("You entered the wrong parameter");
-                        }
-                        if (shipLength > astra.MaxShipSize)
-                        {
-                            Console.WriteLine("You Are to LONG for our harbour!! Ok?");
-                            Console.ReadKey();
-                        }
-                        else
+                        Console.Write("Length - ");
+                        var shipLength = Console.ReadLine();
+
+                        //To enable filtering in ship SIZE 
+
+                        //var sl = Convert.ToDecimal(shipLength);
+                        //if (sl > astra.MaxShipSize)
+                        //{
+                        //    Console.WriteLine("You Are to LONG for our harbour!! Ok?");
+                        //    Console.ReadKey();
+                        //}
+                        //else
                         {
                             var incomingShip = new IncomingShip(incomeShipName, shipType, shipColor, shipLength);
                             incomingShipList2.Add(incomingShip);
@@ -110,12 +111,18 @@ namespace Harbour
                                     {
                                         Console.WriteLine(incomingShip.GetBeep());
                                     }
+                                    ErrorCounter errorCounter = new ErrorCounter();
+                                    Beep1 beep1 = new Beep1();
+                                    var z = 0;
                                     while (incomingShip.IncomeBeepCount != 3)
                                     {
-                                        Console.WriteLine("Wrong number of BEEP'S,\nHow many beeps will U make now?");
-                                        incomingShip.IncomeBeepCount = Convert.ToInt32(Console.ReadLine());
-
+                                        errorCounter.onError += beep1.WrongParameter;
+                                        errorCounter.Count();
+                                        Console.WriteLine("Wrong number of BEEP's, \nHow many beeps will U make now?");
+                                        try { incomingShip.IncomeBeepCount = Convert.ToInt32(Console.ReadLine()); }
+                                        catch { Console.WriteLine("ONLY number!"); }
                                     }
+                                    
                                     astra.ShipsInHarbour.Add(incomingShip);
                                     incomingShipNameList.Add(incomeShipName);
                                     incomingShipList2.Add(incomingShip);
@@ -123,7 +130,7 @@ namespace Harbour
                             }
                         }
                     }
-                    else { Console.WriteLine("Sorry! Come another time!"); } 
+                    else { Console.WriteLine("Sorry! Come another time! \nDo you want to continue? (\"y/n\")"); } 
                 }
                 Console.WriteLine("Do you want to continue? (\"y/n\")");
             }

@@ -11,7 +11,7 @@ namespace Harbour.ShipTypes
     {
         public string Name { get; set; }
         public string Color{ get; set; }
-        public decimal Length{ get; set; }
+        public string Length{ get; set; }
         public Enums.Enums.ShipTypes IncomeShipType { get; set; }
         public int IncomeBeepCount { get; set; }
 

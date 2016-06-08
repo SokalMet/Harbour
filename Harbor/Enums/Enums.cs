@@ -4,9 +4,10 @@
     {
         public enum ShipTypes
         {
-            SmallShip=0,
+            SmallShip=1,
             TooBigShip,
-            Tanker
+            Tanker,
+            WRONG 
         }
         public enum WeatherType
         {

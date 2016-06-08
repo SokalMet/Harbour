@@ -57,7 +57,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Beep1.cs" />
     <Compile Include="Enums\Enums.cs" />
+    <Compile Include="ErrorCounter.cs" />
     <Compile Include="Harbours\Countries\Towns\Khmelnitskiy\HarbourAstra.cs" />
     <Compile Include="Harbours\Harbour.cs" />
     <Compile Include="Interfaces\IShip.cs" />

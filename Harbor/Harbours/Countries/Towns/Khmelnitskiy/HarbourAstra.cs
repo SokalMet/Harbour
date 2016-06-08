@@ -11,7 +11,7 @@ namespace Harbour.Harbours.Countries.Towns.Khmelnitskiy
         {
             Name = "Astra";
             Country = "Ukraine";
-            Town ="(Khmelnitskiy)";
+            Town ="Khmelnitskiy";
             ShipsInHarbour = new List<Ship>();
         }
 
@@ -32,11 +32,11 @@ namespace Harbour.Harbours.Countries.Towns.Khmelnitskiy
         public List<Ship> ShipsInHarbour { get; set; } 
 
        public override decimal MaxShipSize{
-            get { return 11m; }
+            get { return 6m; }
         }
 
        public override int MaxShipsIn{
-           get { return 3; }
+           get { return 2; }
        }
     }
 }

@@ -9,7 +9,7 @@ namespace Harbour.ShipTypes
 {
     public class IncomingShip:Ship
     {
-        public IncomingShip(string name, Enums.Enums.ShipTypes incomeShipType, string color, decimal length)
+        public IncomingShip(string name, Enums.Enums.ShipTypes incomeShipType, string color, string length)
         {
             Name = name;
             Color = color;
